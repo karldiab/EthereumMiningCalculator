@@ -1,0 +1,46 @@
+body {
+  background-color: white;
+}
+h2,
+h1 {
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px white solid;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+th {
+    background: #ccc;
+    text-align: right;
+    border: 1px white solid;
+}
+table {
+    margin: 10px;
+}
+td {
+    border: 1px white solid;
+}
+.negative {
+    color: red;
+}
+#chartContainer {
+    text-align: center;
+    height: 550px;
+    padding: 7px;
+    background-color: #cccccc;
+}
+#header {
+  height: 75px;
+  margin-bottom: 5px;
+}
+#authorInfo {
+    text-align: center;
+    padding-top: 20px;
+}
+#axisChange {
+    width: 50px;
+}
