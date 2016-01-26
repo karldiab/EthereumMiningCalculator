@@ -96,14 +96,6 @@ function data($scope, $http) {
         $scope.values[3] = [$scope.earnings.poolCostHour];
         $scope.earnings.profitHour = (($scope.earnings.hourGrossUSD - $scope.earnings.powerCostHour) - $scope.earnings.poolCostHour);
         $scope.values[4] = [$scope.earnings.profitHour];
-        $scope.earnings.hourGrossETHNext = $scope.earnings.hourGrossETH/(1+($scope.nextDifficulty/100));
-        $scope.values[5] = [$scope.earnings.hourGrossETHNext];
-        $scope.earnings.hourGrossUSDNext = $scope.earnings.hourGrossETHNext*$scope.price;
-        $scope.values[6] = [$scope.earnings.hourGrossUSDNext];
-        $scope.earnings.poolCostHourNext = ($scope.earnings.hourGrossUSDNext*($scope.poolFee/100));
-        $scope.values[7] = [$scope.earnings.poolCostHourNext];
-        $scope.earnings.profitHourNext = (($scope.earnings.hourGrossUSDNext - $scope.earnings.powerCostHour) - $scope.earnings.poolCostHourNext);
-        $scope.values[8] = [$scope.earnings.profitHourNext];
         //this loop is to create and store all of the profit values as hourly, daily, weekly and monthly
         for (var i = 0; i < $scope.values.length; i++) {
             //earnings/costs per day
@@ -116,8 +108,8 @@ function data($scope, $http) {
             $scope.values[i][4] = $scope.values[i][1] * 365;
         }
         /*conditional that prevents the program from drawing the chart before all the required data has been collected*/
-        if (typeof $scope.userHash !== "undefined" && typeof $scope.reward !== "undefined" && typeof 
-        $scope.price !== "undefined" && typeof $scope.difficulty !== "undefined") {
+        if (typeof $scope.userHash !== "undefined" && typeof $scope.price !== "undefined" 
+        && typeof $scope.difficulty !== "undefined") {
             $scope.drawChart();
         }
   }
@@ -130,9 +122,7 @@ function data($scope, $http) {
             labels[i] = i + (i == 1? " Month" : " Months");
             if (i > 0) {
                 //profit logic
-                $scope.profit[i] = $scope.profit[i-1] + 2*(rollingDiffFactor*$scope.values[1][2] - rollingDiffFactor*$scope.values[3][2] - $scope.values[2][2]);
-                rollingDiffFactor *= 1/(1+($scope.nextDifficulty/100));
-                $scope.profit[i] += + 2*(rollingDiffFactor*$scope.values[1][2] - rollingDiffFactor*$scope.values[3][2] - $scope.values[2][2]);
+                $scope.profit[i] = $scope.profit[i-1] + ($scope.values[4][3]);
                 $scope.profit[i] =  parseFloat($scope.profit[i].toFixed(2));
             }
         }

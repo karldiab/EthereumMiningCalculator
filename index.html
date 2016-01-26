@@ -35,11 +35,11 @@
                         </tr>
                         <tr>
                             <th>Network Difficulty:</th>
-                            <td><input type="number" ng-model="difficultyDisplay" ng-change="computeProfits()"/>Trillion</td>
+                            <td><input type="number" ng-model="difficultyDisplay" ng-change="computeProfits()"/> Trillion</td>
                         </tr>
                         <tr>
                             <th>Block Time:</th>
-                            <td><input type="number" ng-model="blockTime" ng-change="computeProfits()"/>Seconds</td>
+                            <td><input type="number" ng-model="blockTime" ng-change="computeProfits()"/> Seconds</td>
                         </tr>
                         <tr>
                             <th>ETH Price:</th>
@@ -62,18 +62,15 @@
                         </tr>
                         <tr>
                             <th>Power Cost:</th>
-                            <td><input type="number" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0"/>{{ currency }} / kWh</td>
+                            <td><input type="number" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0"/> {{ currency }} / kWh</td>
                         </tr>
                         <tr>
                             <th>Pool Fee</th>
                             <td><input type="number" ng-model="poolFee" ng-change="computeProfits()" ng-init="poolFee = 0"/> %</td>
                         </tr>
-                        <tr>
-                            <th>Difficulty Increase</th>
-                            <td><input type="number" ng-model="nextDifficulty" ng-change="computeProfits()" ng-init="nextDifficulty = 5"/> % / (~2 weeks)</td> 
-                        </tr>
                     </table>
-                    <h2>At This Difficulty</h2>
+
+                    <h2>Profit Breakdown</h2>
                 <table>
                     <thead>
                         <tr>
@@ -88,7 +85,7 @@
                     <tbody>
                         <tr>
                             <td>Hourly</td>
-                            <td>{{values[0][0]|number:6}}</td>
+                            <td>{{values[0][0]|number:2}}</td>
                             <td>{{values[1][0]|currency}}</td>
                             <td>{{values[2][0]|currency}}</td>
                             <td>{{values[3][0]|currency}}</td>
@@ -96,7 +93,7 @@
                         </tr>
                         <tr>
                             <td>Daily</td>
-                            <td>{{values[0][1]|number:6}}</td>
+                            <td>{{values[0][1]|number:2}}</td>
                             <td>{{values[1][1]|currency}}</td>
                             <td>{{values[2][1]|currency}}</td>
                             <td>{{values[3][1]|currency}}</td>
@@ -104,7 +101,7 @@
                         </tr>
                         <tr>
                             <td>Weekly</td>
-                            <td>{{values[0][2]|number:6}}</td>
+                            <td>{{values[0][2]|number:2}}</td>
                             <td>{{values[1][2]|currency}}</td>
                             <td>{{values[2][2]|currency}}</td>
                             <td>{{values[3][2]|currency}}</td>
@@ -112,19 +109,11 @@
                         </tr>
                         <tr>
                             <td>Monthly</td>
-                            <td>{{values[0][3]|number:6}}</td>
+                            <td>{{values[0][3]|number:2}}</td>
                             <td>{{values[1][3]|currency}}</td>
                             <td>{{values[2][3]|currency}}</td>
                             <td>{{values[3][3]|currency}}</td>
                             <td ng-class="{negative: values[4][3] < 0}">{{values[4][3]|currency}}</td>
-                        <tr>
-                            <td>Annually</td>
-                            <td>{{values[0][4]|number:6}}</td>
-                            <td>{{values[1][4]|currency}}</td>
-                            <td>{{values[2][4]|currency}}</td>
-                            <td>{{values[3][4]|currency}}</td>
-                            <td ng-class="{negative: values[4][4] < 0}">{{values[4][4]|currency}}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -136,14 +125,21 @@
                 <h3>Total Profit ({{currency}})</h3>
                 <canvas id="myChart" width="450" height="450"></canvas><br/>
                 Time Frame:
-                <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 12" ng-change="changeAxis()"/> Months
+                <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 6" ng-change="changeAxis()"/> Months
+
                 </div>
             </div>
         </div>
+        <div id="notes">
+            <h4>Notes</h4>
+            <ul>
+                <li>Remember that mining will end sometime this summer!</li>
+                <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
+                <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
+                <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
+        </div>
         <div id="authorInfo">
-
-            <strong>Written by Karl Diab using AngularJS and Chart.js. The utility fetches live 
-                Ethereum network & price data from https://www.etherchain.org</strong></br>
+            <strong>Written by Karl Diab using AngularJS and Chart.js.</strong></br>
             <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
             <a href="https://github.com/karldiab/EthereumMiningCalculator"><button class="btn btn-primary btn-sm">Source Code</button></a>
         </div>

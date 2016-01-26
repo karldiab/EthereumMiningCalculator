@@ -39,7 +39,8 @@ td {
 }
 #authorInfo {
     text-align: center;
-    padding-top: 20px;
+    padding: 10px;
+    
 }
 #axisChange {
     width: 50px;
