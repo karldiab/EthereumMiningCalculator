@@ -54,6 +54,10 @@ function data($scope, $http) {
                 $scope.price = response.price.cny;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
+            } else if ($scope.currency == "RUB") {
+                $scope.price = response.price.rub;
+            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
+                $scope.computeProfits();
             } else if ($scope.currency == "CAD") {
                 $scope.price = response.price.cad;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
