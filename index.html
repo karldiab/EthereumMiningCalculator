@@ -156,6 +156,9 @@
                             <td ng-class="{negative: values[4][3] < 0}">{{values[4][3]|currency}}</td>
                     </tbody>
                 </table>
+                <div style="text-align: center; padding: 5px;">
+                    <a href="http://www.karldiab.com/BitcoinMiningCalculator"><button class="btn btn-warning btn-md">Bitcoin Mining Calculator</button></a>
+                </div>
             </div>
             <div class="col-md-5 animated fadeIn" id="chartContainer">
                 <div id="chartNotReady" ng-hide="myLineChart">
@@ -163,7 +166,7 @@
                 </div>
                 <div  ng-show="myLineChart">
                 <h3>Total Profit ({{currency}})</h3>
-                <canvas id="myChart" height="400px"></canvas><br/>
+                <canvas id="myChart" height="400px" width="300px"></canvas><br/>
                 Time Frame:
                 <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 6" ng-change="changeAxis()"/> Months
 
