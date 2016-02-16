@@ -5,7 +5,9 @@ h2,
 h1 {
     text-align: center;
 }
-
+input {
+    width: 50%;
+}
 table {
     border-collapse: collapse;
     border: 1px white solid;
@@ -20,6 +22,26 @@ th {
 }
 table {
     margin: 10px;
+}
+#mobileAdBanner {
+    display: none;
+}
+#desktopAdBanner {
+    display: block;
+    text-align: center;
+    background-color: green;
+    
+}
+@media screen 
+and (max-width : 500px) {
+    #mobileAdBanner {
+        display: block;
+        text-align: center;
+        background-color: blue;
+    }
+    #desktopAdBanner {
+        display: none;
+    }
 }
 td {
     border: 1px white solid;
