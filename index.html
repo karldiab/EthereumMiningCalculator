@@ -25,8 +25,9 @@
 <body>
     <div class="container">  
         <div id="header">
-            <a href="http://www.karldiab.com"><img align="right" src="images/logo75.png" alt="KarlDiab Logo"/></a>
+            <a href="http://www.karldiab.com"><img align="right" src="images/logo75.png" alt="KarlDiab Logo" id="KDLogo"/></a>
             <h1>Ethereum Mining Calculator</h1>
+            <p style="text-align: center;">Now mobile friendly!</p>
         </div>
         <div id="desktopAdBanner">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -156,7 +157,7 @@
                 </div>
                 <div  ng-show="myLineChart">
                 <h3>Total Profit ({{currency}})</h3>
-                <canvas id="myChart"></canvas><br/>
+                <canvas id="myChart" height="400px"></canvas><br/>
                 Time Frame:
                 <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 6" ng-change="changeAxis()"/> Months
 

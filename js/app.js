@@ -1,4 +1,3 @@
-
 function data($scope, $http) {
     // when the page loads for the first time
     if($scope.search == undefined) {
@@ -155,8 +154,9 @@ function data($scope, $http) {
             var detectRadius = 1;
         }
         var options = {
-            pointHitDetectionRadius : detectRadius
+            pointHitDetectionRadius : detectRadius,
         };
+        //Chart.defaults.global.responsive = true;
         //if the chart object doesn't exist yet, OR a complete redraw was called. Create new chart object
         if (typeof $scope.myLineChart == "undefined" || drawNew) {
             ctx = document.getElementById("myChart").getContext("2d");

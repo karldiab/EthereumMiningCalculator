@@ -29,7 +29,6 @@ table {
 #desktopAdBanner {
     display: block;
     text-align: center;
-    background-color: green;
     
 }
 @media screen 
@@ -37,10 +36,12 @@ and (max-width : 500px) {
     #mobileAdBanner {
         display: block;
         text-align: center;
-        background-color: blue;
     }
     #desktopAdBanner {
         display: none;
+    }
+    #KDLogo{
+      display: none;
     }
 }
 td {
