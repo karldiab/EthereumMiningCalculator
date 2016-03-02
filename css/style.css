@@ -35,7 +35,7 @@ table {
     
 }
 @media screen 
-and (max-width : 500px) {
+and (max-width : 728px) {
     #mobileAdBanner,
     #smallTitle {
         display: block;
@@ -61,7 +61,7 @@ td {
 }
 #header {
   height: 75px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 #authorInfo {
     text-align: center;
