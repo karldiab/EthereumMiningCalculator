@@ -26,6 +26,9 @@ table {
 #mobileAdBanner {
     display: none;
 }
+#smallTitle {
+    display: none;
+}
 #desktopAdBanner {
     display: block;
     text-align: center;
@@ -33,15 +36,15 @@ table {
 }
 @media screen 
 and (max-width : 500px) {
-    #mobileAdBanner {
+    #mobileAdBanner,
+    #smallTitle {
         display: block;
         text-align: center;
     }
-    #desktopAdBanner {
+    #desktopAdBanner,
+    #bigTitle,
+    #KDLogo {
         display: none;
-    }
-    #KDLogo{
-      display: none;
     }
 }
 td {
