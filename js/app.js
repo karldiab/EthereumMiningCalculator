@@ -137,7 +137,7 @@ function data($scope, $http) {
             labels[i] = i + (i == 1? " Month" : " Months");
             if (i > 0) {
                 //profit logic
-                $scope.profit[i] = $scope.profit[i-1] + ($scope.values[1][3])*rollingDiffFactor - $scope.values[2][3];
+                $scope.profit[i] = $scope.profit[i-1] + ($scope.values[1][3])*rollingDiffFactor - $scope.values[2][3] - $scope.values[3][3]*rollingDiffFactor;
                 $scope.profit[i] =  parseFloat($scope.profit[i].toFixed(2));
                 rollingDiffFactor = rollingDiffFactor/(1+($scope.diffChange/100));
             }
