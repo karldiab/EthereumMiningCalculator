@@ -42,8 +42,7 @@ and (max-width : 728px) {
         text-align: center;
     }
     #desktopAdBanner,
-    #bigTitle,
-    #KDLogo {
+    #bigTitle {
         display: none;
     }
 }

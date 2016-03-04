@@ -31,7 +31,6 @@
 <body>
     <div class="container">  
         <div id="header">
-            <a href="http://www.karldiab.com"><img align="right" src="images/logo75.png" alt="KarlDiab Logo" id="KDLogo"/></a>
             <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
             <div id="smallTitle"><h3>Ethereum Mining Calculator</h3></div>
             <p style="text-align: center;">If you like this service, please consider disabling your ad blocker for this page. No pop-ups, I promise. ;)</p>
@@ -62,7 +61,7 @@
             <div class="animated zoomInRight col-md-5">
                     <table>
                         <tr>
-                            <th>Your Hashrate:</th>
+                            <th>Hashrate:</th>
                             <td>
                                 <input type="number" id="userHash" ng-model="userHash" 
                                 ng-change="computeProfits()" placeholder="Enter Hashrate" />
@@ -74,7 +73,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Network Difficulty:</th>
+                            <th>Difficulty:</th>
                             <td><input type="number" ng-model="difficultyDisplay" ng-change="computeProfits()"/> Trillion</td>
                         </tr>
                         <tr>
@@ -93,7 +92,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Power Consumption:</th>
+                            <th>Power:</th>
                             <td><input type="number" ng-model="wattage" ng-change="computeProfits()" ng-init="wattage = 0"/>
                                 <select ng-model="powerSuffix" ng-change="computeProfits()">
                                 <option value="W" selected="powerSuffix" ng-init="powerSuffix = 'W'">W</option>
@@ -112,51 +111,53 @@
                     </table>
 
                     <h2>Profit Breakdown</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Period</th>
-                            <th>ETH</th>
-                            <th>{{currency}}</th>
-                            <th>Power Cost ({{currency}})</th>
-                            <th>Pool Fees ({{currency}})</th>
-                            <th>Profit ({{currency}})</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Hourly</td>
-                            <td>{{values[0][0]|number:2}}</td>
-                            <td>{{values[1][0]|currency}}</td>
-                            <td>{{values[2][0]|currency}}</td>
-                            <td>{{values[3][0]|currency}}</td>
-                            <td ng-class="{negative: values[4][0] < 0}">{{values[4][0]|currency}}</td>
-                        </tr>
-                        <tr>
-                            <td>Daily</td>
-                            <td>{{values[0][1]|number:2}}</td>
-                            <td>{{values[1][1]|currency}}</td>
-                            <td>{{values[2][1]|currency}}</td>
-                            <td>{{values[3][1]|currency}}</td>
-                            <td ng-class="{negative: values[4][1] < 0}">{{values[4][1]|currency}}</td>
-                        </tr>
-                        <tr>
-                            <td>Weekly</td>
-                            <td>{{values[0][2]|number:2}}</td>
-                            <td>{{values[1][2]|currency}}</td>
-                            <td>{{values[2][2]|currency}}</td>
-                            <td>{{values[3][2]|currency}}</td>
-                            <td ng-class="{negative: values[4][2] < 0}">{{values[4][2]|currency}}</td>
-                        </tr>
-                        <tr>
-                            <td>Monthly</td>
-                            <td>{{values[0][3]|number:2}}</td>
-                            <td>{{values[1][3]|currency}}</td>
-                            <td>{{values[2][3]|currency}}</td>
-                            <td>{{values[3][3]|currency}}</td>
-                            <td ng-class="{negative: values[4][3] < 0}">{{values[4][3]|currency}}</td>
-                    </tbody>
-                </table>
+                <div id="outputTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Period</th>
+                                <th>ETH</th>
+                                <th>{{currency}}</th>
+                                <th>Power Cost ({{currency}})</th>
+                                <th>Pool Fees ({{currency}})</th>
+                                <th>Profit ({{currency}})</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hourly</td>
+                                <td>{{values[0][0]|number:2}}</td>
+                                <td>{{values[1][0]|currency}}</td>
+                                <td>{{values[2][0]|currency}}</td>
+                                <td>{{values[3][0]|currency}}</td>
+                                <td ng-class="{negative: values[4][0] < 0}">{{values[4][0]|currency}}</td>
+                            </tr>
+                            <tr>
+                                <td>Daily</td>
+                                <td>{{values[0][1]|number:2}}</td>
+                                <td>{{values[1][1]|currency}}</td>
+                                <td>{{values[2][1]|currency}}</td>
+                                <td>{{values[3][1]|currency}}</td>
+                                <td ng-class="{negative: values[4][1] < 0}">{{values[4][1]|currency}}</td>
+                            </tr>
+                            <tr>
+                                <td>Weekly</td>
+                                <td>{{values[0][2]|number:2}}</td>
+                                <td>{{values[1][2]|currency}}</td>
+                                <td>{{values[2][2]|currency}}</td>
+                                <td>{{values[3][2]|currency}}</td>
+                                <td ng-class="{negative: values[4][2] < 0}">{{values[4][2]|currency}}</td>
+                            </tr>
+                            <tr>
+                                <td>Monthly</td>
+                                <td>{{values[0][3]|number:2}}</td>
+                                <td>{{values[1][3]|currency}}</td>
+                                <td>{{values[2][3]|currency}}</td>
+                                <td>{{values[3][3]|currency}}</td>
+                                <td ng-class="{negative: values[4][3] < 0}">{{values[4][3]|currency}}</td>
+                        </tbody>
+                    </table>
+                </div>
                 <div style="text-align: center; padding: 5px;">
                     <a href="http://www.karldiab.com/BitcoinMiningCalculator"><button class="btn btn-warning btn-md">Bitcoin Mining Calculator</button></a>
                 </div>
@@ -189,7 +190,7 @@
         <div id="notes">
             <h4>Notes</h4>
             <ul>
-                <li><strong>Donation address: 0xd24780aeaf3603e8902e58d46bf778a173d42721</strong></li>
+                <li><a href="https://etherchain.org/account/0xd24780aeaf3603e8902e58d46bf778a173d42721">Donation Address</a></li>
                 <li>Remember that mining will end sometime this summer!</li>
                 <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
                 <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
