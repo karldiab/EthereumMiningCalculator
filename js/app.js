@@ -38,16 +38,11 @@ function data($scope, $http) {
             $scope.difficulty = $scope.ethereumStats.data[0].difficulty;
             $scope.blockTime = $scope.ethereumStats.data[0].blockTime;
             $scope.difficultyDisplay = parseFloat(($scope.difficulty/1E12).toFixed(3));
-            $http.get("https://etherchain.org/api/blocks/count")
+            nBlocks1Mo = (30*24*60*60/$scope.blockTime);
+            $http.get("https://etherchain.org/api/blocks/" + nBlocks1Mo + "/1")
             .success(function(response) {
-                $scope.blockCount = response.data[0].count;
-                blockNum1MoAgo = $scope.blockCount - (30*24*60*60/$scope.blockTime);
-                $http.get("https://etherchain.org/api/block/" + Math.round(blockNum1MoAgo))
-                .success(function(response) {
-                    difficulty1MoAgo = response.data[0].difficulty;
-                    $scope.diffChange = parseFloat((($scope.difficulty/difficulty1MoAgo - 1)*100).toFixed(5));
-                    
-                })
+                difficulty1MoAgo = response.data[0].difficulty;
+                $scope.diffChange = parseFloat((($scope.difficulty/difficulty1MoAgo - 1)*100).toFixed(4));
             })
         });
     }
