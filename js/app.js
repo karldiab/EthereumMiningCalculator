@@ -26,20 +26,32 @@ function data($scope, $http) {
     $scope.values = [];
     //function that grabs api data from the net
     function fetch() {
-        $http.get("https://etherchain.org/api/miningEstimator")
-        .success(function(response) {
-            $scope.ethereumStats = response;
-            $scope.difficulty = $scope.ethereumStats.data[0].difficulty;
-            $scope.blockTime = $scope.ethereumStats.data[0].blockTime;
-            $scope.difficultyDisplay = parseFloat(($scope.difficulty/1E12).toFixed(3));
-        });
         //finding average price between 3 high volume exchanges.
         $http.get("http://coinmarketcap-nexuist.rhcloud.com/api/eth")
         .success(function(response) {
             $scope.price = response.price.usd;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
         });
+        $http.get("https://etherchain.org/api/miningEstimator")
+        .success(function(response) {
+            $scope.ethereumStats = response;
+            $scope.difficulty = $scope.ethereumStats.data[0].difficulty;
+            $scope.blockTime = $scope.ethereumStats.data[0].blockTime;
+            $scope.difficultyDisplay = parseFloat(($scope.difficulty/1E12).toFixed(3));
+            $http.get("https://etherchain.org/api/blocks/count")
+            .success(function(response) {
+                $scope.blockCount = response.data[0].count;
+                blockNum1MoAgo = $scope.blockCount - (30*24*60*60/$scope.blockTime);
+                $http.get("https://etherchain.org/api/block/" + Math.round(blockNum1MoAgo))
+                .success(function(response) {
+                    difficulty1MoAgo = response.data[0].difficulty;
+                    $scope.diffChange = parseFloat((($scope.difficulty/difficulty1MoAgo - 1)*100).toFixed(5));
+                    
+                })
+            })
+        });
     }
+
     //this function grabs price data only when the currency is changed
     $scope.fetchPriceOnly = function() {
         //finding average price between 3 high volume exchanges.
@@ -120,13 +132,14 @@ function data($scope, $http) {
     $scope.drawChart = function(drawNew) {
         var labels = [];
         $scope.profit = [0];
-        var rollingDiffFactor = 1/(1+($scope.nextDifficulty/100));
+        var rollingDiffFactor = 1;
         for (var i = 0; i <= $scope.timeFrame; i++) {
             labels[i] = i + (i == 1? " Month" : " Months");
             if (i > 0) {
                 //profit logic
-                $scope.profit[i] = $scope.profit[i-1] + ($scope.values[4][3]);
+                $scope.profit[i] = $scope.profit[i-1] + ($scope.values[1][3])*rollingDiffFactor - $scope.values[2][3] - $scope.values[3][3]*rollingDiffFactor;
                 $scope.profit[i] =  parseFloat($scope.profit[i].toFixed(2));
+                rollingDiffFactor = rollingDiffFactor/(1+($scope.diffChange/100));
             }
         }
         var data = {
