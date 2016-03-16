@@ -12,7 +12,7 @@ input {
 table {
     border-collapse: collapse;
     border: 1px white solid;
-    width: 90%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -23,6 +23,12 @@ th {
 }
 table {
     margin: 10px;
+}
+#inputTable th {
+    width: 30%;
+}
+#outputTable td {
+    background-color: #eee;
 }
 #mobileAdBanner {
     display: none;
@@ -36,7 +42,7 @@ table {
     
 }
 @media screen 
-and (max-width : 728px) {
+and (max-width : 500px) {
     #mobileAdBanner,
     #smallTitle {
         display: block;
@@ -48,7 +54,7 @@ and (max-width : 728px) {
     }
 }
 td {
-    border: 1px white solid;
+    border: 2px white solid;
 }
 .negative {
     color: red;
@@ -61,7 +67,7 @@ td {
 }
 #header {
   height: 75px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 #authorInfo {
     text-align: center;

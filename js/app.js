@@ -32,24 +32,29 @@ function data($scope, $http) {
             $scope.price = response.price.usd;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
         });
-        $http.get("https://etherchain.org/api/miningEstimator")
+        $http.get("https://etherchain.org/api/difficulty")
         .success(function(response) {
             $scope.ethereumStats = response;
-            $scope.difficulty = $scope.ethereumStats.data[0].difficulty;
-            $scope.blockTime = $scope.ethereumStats.data[0].blockTime;
-            $scope.difficultyDisplay = parseFloat(($scope.difficulty/1E12).toFixed(3));
-            $http.get("https://etherchain.org/api/blocks/count")
+            $scope.difficulty = parseFloat((($scope.ethereumStats.data[0].difficulty)/1e12).toFixed(4));
+            //console.log($scope.difficulty);
+            $http.get("https://etherchain.org/api/miningEstimator")
             .success(function(response) {
-                $scope.blockCount = response.data[0].count;
-                blockNum1MoAgo = $scope.blockCount - (30*24*60*60/$scope.blockTime);
-                $http.get("https://etherchain.org/api/block/" + Math.round(blockNum1MoAgo))
+                $scope.ethereumStats = response;
+                $scope.blockTime = $scope.ethereumStats.data[0].blockTime;
+                $http.get("https://etherchain.org/api/blocks/count")
                 .success(function(response) {
-                    difficulty1MoAgo = response.data[0].difficulty;
-                    $scope.diffChange = parseFloat((($scope.difficulty/difficulty1MoAgo - 1)*100).toFixed(5));
-                    
+                    $scope.blockCount = response.data[0].count;
+                    blockNum1MoAgo = $scope.blockCount - (30*24*60*60/$scope.blockTime);
+                    $http.get("https://etherchain.org/api/block/" + Math.round(blockNum1MoAgo))
+                    .success(function(response) {
+                        difficulty1MoAgo = response.data[0].difficulty;
+                        $scope.diffChange = parseFloat((($scope.difficulty*1e12 - difficulty1MoAgo)/1e12).toFixed(2));
+                        
+                    })
                 })
             })
         });
+
     }
 
     //this function grabs price data only when the currency is changed
@@ -82,13 +87,11 @@ function data($scope, $http) {
     }
   /*Function that calculates the profits of the user in ethereum.*/
   $scope.computeProfits = function() {  
-        if ($scope.userHashSuffix == "KH") {
-            $scope.userHashSuffixMult = 1e3;
-        }
         if ($scope.userHashSuffix == "MH") {
             $scope.userHashSuffixMult = 1e6;
-        }
-        if ($scope.userHashSuffix == "GH") {
+        } else if ($scope.userHashSuffix == "KH") {
+            $scope.userHashSuffixMult = 1e3;
+        } else if ($scope.userHashSuffix == "GH") {
             $scope.userHashSuffixMult = 1e9;
         }
         if ($scope.powerSuffix == "W") {
@@ -97,11 +100,11 @@ function data($scope, $http) {
             $scope.userPowerSuffixMult = 1;
         }
         var ETHBlockTargetTime = 15;
-        var validBlockRate = ETHBlockTargetTime/$scope.blockTime;
+        var validBlockRate = ETHBlockTargetTime/$scope.blockTime > 1 ? 1 : ETHBlockTargetTime/$scope.blockTime;
         var secondsPerHour = 3600;
         var ethereumPerBlock = 5;
         //long block of math logic to find the hourly rates of gross earnings, power costs, pool fees, and profit
-        $scope.earnings.hourGrossETH = ($scope.userHash/($scope.difficulty))*ethereumPerBlock*secondsPerHour*$scope.userHashSuffixMult*validBlockRate;
+        $scope.earnings.hourGrossETH = ($scope.userHash/($scope.difficulty*1e12))*ethereumPerBlock*secondsPerHour*$scope.userHashSuffixMult*validBlockRate;
         $scope.values[0] = [$scope.earnings.hourGrossETH];
         $scope.earnings.hourGrossUSD = $scope.earnings.hourGrossETH*$scope.price;
         $scope.values[1] = [$scope.earnings.hourGrossUSD];
@@ -133,13 +136,15 @@ function data($scope, $http) {
         var labels = [];
         $scope.profit = [0];
         var rollingDiffFactor = 1;
+        var projectedDifficulty = $scope.difficulty;
         for (var i = 0; i <= $scope.timeFrame; i++) {
             labels[i] = i + (i == 1? " Month" : " Months");
             if (i > 0) {
                 //profit logic
                 $scope.profit[i] = $scope.profit[i-1] + ($scope.values[1][3])*rollingDiffFactor - $scope.values[2][3] - $scope.values[3][3]*rollingDiffFactor;
                 $scope.profit[i] =  parseFloat($scope.profit[i].toFixed(2));
-                rollingDiffFactor = rollingDiffFactor/(1+($scope.diffChange/100));
+                projectedDifficulty += $scope.diffChange;
+                rollingDiffFactor = $scope.difficulty/(projectedDifficulty);
             }
         }
         var data = {

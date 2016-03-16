@@ -32,7 +32,7 @@
     <div class="container">  
         <div id="header">
             <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
-            <div id="smallTitle"><h3>Ethereum Mining Calculator</h3></div>
+            <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
             <p style="text-align: center;">If you like this service, please consider disabling your ad blocker for this page. No pop-ups, I promise. ;)</p>
         </div>
         <div id="desktopAdBanner">
@@ -59,7 +59,7 @@
         </div>
         <div class="row">
             <div class="animated zoomInRight col-md-5">
-                    <table>
+                    <table id="inputTable">
                         <tr>
                             <th>Hashrate:</th>
                             <td>
@@ -74,7 +74,7 @@
                         </tr>
                         <tr>
                             <th>Difficulty:</th>
-                            <td><input type="number" ng-model="difficultyDisplay" ng-change="computeProfits()"/> Trillion</td>
+                            <td><input type="number" ng-model="difficulty" ng-change="computeProfits()"/> Trillion</td>
                         </tr>
                         <tr>
                             <th>Block Time:</th>
@@ -110,12 +110,12 @@
                         </tr>
                         <tr>
                             <th>Diff Change</th>
-                            <td><input type="number" ng-model="diffChange" ng-change="computeProfits()"/> % / Month</td>
+                            <td><input type="number" ng-model="diffChange" ng-change="computeProfits()"/> Trillion / Month</td>
                         </tr>
                     </table>
                     <h3>Profits At This Difficulty</h3>
-                <div id="outputTable">
-                    <table>
+                <div>
+                    <table id="outputTable">
                         <thead>
                             <tr>
                                 <th>Period</th>
@@ -161,9 +161,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div style="text-align: center; padding: 5px;">
-                    <a href="http://www.karldiab.com/BitcoinMiningCalculator"><button class="btn btn-warning btn-md">Bitcoin Mining Calculator</button></a>
-                </div>
             </div>
             <div class="col-md-5 animated fadeIn" id="chartContainer">
                 <div id="chartNotReady" ng-hide="myLineChart">
@@ -202,6 +199,7 @@
         <div id="authorInfo">
             <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
             <a href="https://github.com/karldiab/EthereumMiningCalculator"><button class="btn btn-primary btn-sm">Source Code</button></a>
+            <a href="http://www.karldiab.com/BitcoinMiningCalculator"><button class="btn btn-warning btn-sm">Bitcoin Mining Calculator</button></a>
         </div>
     </div>
 </body>
