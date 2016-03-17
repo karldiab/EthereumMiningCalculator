@@ -99,7 +99,7 @@ function data($scope, $http) {
         } else {
             $scope.userPowerSuffixMult = 1;
         }
-        var ETHBlockTargetTime = 15;
+        var ETHBlockTargetTime = 14;
         var validBlockRate = ETHBlockTargetTime/$scope.blockTime > 1 ? 1 : ETHBlockTargetTime/$scope.blockTime;
         var secondsPerHour = 3600;
         var ethereumPerBlock = 5;
