@@ -36,11 +36,19 @@
             <p style="text-align: center;">If you like this service, please consider disabling your ad blocker for this page. No pop-ups, I promise. ;)</p>
         </div>
         <div id="desktopAdBanner">
-            <iframe src='http://kiboplatform.net/_alldata/files/tools/banners/en/INSTANT/HTML5/728x90_kibo/728x90_kibo_Canvas.html?nickname=peretzz' width='728' height='90' style='border: 0; overflow: hidden;' scrolling='no'></iframe>
         </div>
         <div id="mobileAdBanner">
-            <iframe src='http://kiboplatform.net/_alldata/files/tools/banners/en/INSTANT/HTML5/310x65_kibo/310x65_kibo_Canvas.html?nickname=peretzz' width='310' height='65' style='border: 0; overflow: hidden;' scrolling='no'></iframe>
         </div>
+        <script type="text/javascript">
+            var userLang = navigator.language || navigator.userLanguage; 
+            if (userLang == "ru") {
+                document.getElementById("desktopAdBanner").innerHTML = "<a href='http://www.kiboplatform.net/peretzz'><img src='images/banner_728x90.gif'></a>";
+                document.getElementById("mobileAdBanner").innerHTML = "<a href='http://www.kiboplatform.net/peretzz'><img src='images/banner_320x90.gif'></a>";
+            } else {
+                document.getElementById("desktopAdBanner").innerHTML = "<iframe src='http://kiboplatform.net/_alldata/files/tools/banners/en/INSTANT/HTML5/728x90_kibo/728x90_kibo_Canvas.html?nickname=peretzz' width='728' height='90' style='border: 0; overflow: hidden;' scrolling='no'></iframe>";
+                document.getElementById("mobileAdBanner").innerHTML = "<iframe src='http://kiboplatform.net/_alldata/files/tools/banners/en/INSTANT/HTML5/310x65_kibo/310x65_kibo_Canvas.html?nickname=peretzz' width='310' height='65' style='border: 0; overflow: hidden;' scrolling='no'></iframe>";
+            }
+        </script>
         <div class="row">
             <div class="animated zoomInRight col-md-5">
                     <table id="inputTable">

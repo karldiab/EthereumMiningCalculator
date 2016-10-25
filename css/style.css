@@ -39,6 +39,7 @@ table {
 #desktopAdBanner {
     display: block;
     text-align: center;
+    padding: 5px;
     
 }
 @media screen 
@@ -47,6 +48,7 @@ and (max-width : 500px) {
     #smallTitle {
         display: block;
         text-align: center;
+        padding: 5px;
     }
     #desktopAdBanner,
     #bigTitle {
