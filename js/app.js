@@ -143,7 +143,12 @@ function data($scope, $http) {
                 //profit logic
                 $scope.profit[i] = $scope.profit[i-1] + ($scope.values[1][3])*rollingDiffFactor - $scope.values[2][3] - $scope.values[3][3]*rollingDiffFactor;
                 $scope.profit[i] =  parseFloat($scope.profit[i].toFixed(2));
-                projectedDifficulty += $scope.diffChange;
+                if ($scope.diffChange > 0) {
+                    projectedDifficulty += $scope.diffChange;
+                } else {
+                    projectedDifficulty += $scope.diffChange/i;
+                }
+
                 rollingDiffFactor = $scope.difficulty/(projectedDifficulty);
             }
         }
