@@ -146,8 +146,9 @@ function data($scope, $http) {
                 if ($scope.diffChange > 0) {
                     projectedDifficulty += $scope.diffChange;
                 } else {
-                    projectedDifficulty += $scope.diffChange/i;
-                    console.log("yoooo");
+                    if (projectedDifficulty + $scope.diffChange/i > 0) {
+                        projectedDifficulty += $scope.diffChange/i;
+                    }
                 }
 
                 rollingDiffFactor = $scope.difficulty/(projectedDifficulty);
