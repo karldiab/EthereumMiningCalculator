@@ -17,74 +17,20 @@
 
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
 
-    <link rel="stylesheet" href="css/style.css">
-
   
 </head>
 
 <body>
-      <div id="wrapper">
-        <div class="overlay"></div>
-    
-        <!-- Sidebar -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-            <ul class="nav sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                       Bootstrap 3
-                    </a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-home"></i> Home</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-folder"></i> Page one</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-file-o"></i> Second page</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-cog"></i> Third page</a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">Dropdown heading</li>
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-bank"></i> Page four</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-dropbox"></i> Page 5</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-fw fa-twitter"></i> Last page</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
-            <span class="hamb-top"></span>
-            <span class="hamb-middle"></span>
-            <span class="hamb-bottom"></span>
-          </button>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-2">
+                    <?php 
+                    require_once('../MiningCalcSideBar/echoSideBar.php');
+                    echoTopHalf();
+                    ?>
                     <!-- CALC START--> 
                             <div id="header">
                                 <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
                                 <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
-                                <h4 style="text-align: center; color: red;">Mining ZCash? Check out the new ZCash calculator <a href="http://www.karldiab.com/ZCashMiningCalculator">here!</a></h4>
+                                <h4 style="text-align: center;">Click <span class="glyphicon glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> over there 
+                                <span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true"></span> for more calculators!</h4>
                             </div>
                             <div id="desktopAdBanner">
                                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -241,7 +187,7 @@
                             <div id="notes">
                                 <h4>Notes</h4>
                                 <ul>
-                                    <li><a href="https://etherchain.org/account/0xd24780aeaf3603e8902e58d46bf778a173d42721">Donation Address</a></li>
+                                    <li><a href="https://etherchain.org/account/0x3D1e9a8704449F271A93392Ff06e0284e2d86769">Donation Address</a></li>
                                     <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
                                     <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
                                     <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
@@ -249,22 +195,10 @@
                             <div id="authorInfo">
                                 <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
                                 <a href="https://github.com/karldiab/EthereumMiningCalculator"><button class="btn btn-primary btn-sm">Source Code</button></a>
-                                <a href="http://www.karldiab.com/ZCashMiningCalculator"><button class="btn btn-danger btn-sm">ZCash Mining Calculator</button></a>
-                                <a href="http://www.karldiab.com/BitcoinMiningCalculator"><button class="btn btn-warning btn-sm">Bitcoin Mining Calculator</button></a>
                             </div>
                     <!-- CALCEND-->        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-
-    <script src="js/index.js"></script>
-
+                    <?php 
+                    echoBottomHalf();
+                    ?>
 </body>
 </html>
