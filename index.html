@@ -1,209 +1,270 @@
 <!DOCTYPE html>
 <html lang="en" ng-app ng-controller="data">
-  <head>
+<head>
+    <meta charset="UTF-8">
     <title>Ethereum Mining Calculator</title>
     <meta name="description" content="An easy to use crypto-currency finance utility used to calculate a Ethereum miner's potential profits in ETH and multiple fiat
                                 currencies. The calculator fetches price and network data from the internet
-                                 and only requires the hash rate (speed of mining) from the user. A projected future profit
-                                  chart is created dynamically and displayed instantly.">
+                                    and only requires the hash rate (speed of mining) from the user. A projected future profit
+                                    chart is created dynamically and displayed instantly.">
     <meta name="keywords" content="Ethereum,Mining,Profitability,Calculator,AngularJS,AJAX,finance,currency,cryptocurrency,money,bitcoin">
     <meta name="author" content="Karl Diab">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/Chart.min.js"></script>
     <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-73629036-1', 'auto');
-      ga('send', 'pageview');
-
-    </script>
-  </head>
+  
+</head>
 
 <body>
-    <div class="container">  
-        <div id="header">
-            <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
-            <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
-            <h4 style="text-align: center; color: red;">Mining ZCash? Check out the new ZCash calculator <a href="http://www.karldiab.com/ZCashMiningCalculator">here!</a></h4>
-        </div>
-        <div id="desktopAdBanner">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- EthCalcBanner -->
-            <ins class="adsbygoogle"
-                style="display:inline-block;width:728px;height:90px"
-                data-ad-client="ca-pub-7592216756911114"
-                data-ad-slot="2667682183"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        <div id="mobileAdBanner">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- EthBannerMobile -->
-            <ins class="adsbygoogle"
-                style="display:inline-block;width:320px;height:100px"
-                data-ad-client="ca-pub-7592216756911114"
-                data-ad-slot="5773448986"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        <div class="row">
-            <div class="animated zoomInRight col-md-5">
-                    <table id="inputTable">
-                        <tr>
-                            <th>Hashrate:</th>
-                            <td>
-                                <input type="number" id="userHash" ng-model="userHash" 
-                                ng-change="computeProfits()" placeholder="Enter Hashrate" />
-                                <select ng-model="userHashSuffix" ng-change="computeProfits()">
-                                <option value="KH">KH/s</option>
-                                <option value="MH" selected="selected" ng-init="userHashSuffix = 'MH'">MH/s</option>
-                                <option value="GH">GH/s</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Difficulty:</th>
-                            <td><input type="number" ng-model="difficulty" ng-change="computeProfits()"/> Trillion</td>
-                        </tr>
-                        <tr>
-                            <th>Block Time:</th>
-                            <td><input type="number" ng-model="blockTime" ng-change="computeProfits()"/> Seconds</td>
-                        </tr>
-                        <tr>
-                            <th>ETH Price:</th>
-                            <td><input type="number" ng-model="price" ng-change="computeProfits()"/>
-                                <select ng-model="currency" ng-change="fetchPriceOnly()">
-                                <option value="USD" ng-init="currencyCode = 'USD'">USD</option>
-                                <option value="RUB">RUB</option>
-                                <option value="CNY">CNY</option>
-                                <option value="CAD">CAD</option>
-                                <option value="EUR">EUR</option>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Power:</th>
-                            <td><input type="number" ng-model="wattage" ng-change="computeProfits()" ng-init="wattage = 0"/>
-                                <select ng-model="powerSuffix" ng-change="computeProfits()">
-                                <option value="W" selected="powerSuffix" ng-init="powerSuffix = 'W'">W</option>
-                                <option value="kW">kW</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Power Cost:</th>
-                            <td><input type="number" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0"/> {{ currency }} / kWh</td>
-                        </tr>
-                        <tr>
-                            <th>Pool Fee</th>
-                            <td><input type="number" ng-model="poolFee" ng-change="computeProfits()" ng-init="poolFee = 0"/> %</td>
-                        </tr>
-                        <tr>
-                            <th>Diff Change</th>
-                            <td><input type="number" ng-model="diffChange" ng-change="computeProfits()"/> Trillion / Month</td>
-                        </tr>
-                    </table>
-                    <h3>Profits At This Difficulty</h3>
-                <div>
-                    <table id="outputTable">
-                        <thead>
-                            <tr>
-                                <th>Period</th>
-                                <th>ETH</th>
-                                <th>{{currency}}</th>
-                                <th>Power Cost ({{currency}})</th>
-                                <th>Pool Fees ({{currency}})</th>
-                                <th>Profit ({{currency}})</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Hourly</td>
-                                <td>{{values[0][0]|number:2}}</td>
-                                <td>{{values[1][0]|currency}}</td>
-                                <td>{{values[2][0]|currency}}</td>
-                                <td>{{values[3][0]|currency}}</td>
-                                <td ng-class="{negative: values[4][0] < 0}">{{values[4][0]|currency}}</td>
-                            </tr>
-                            <tr>
-                                <td>Daily</td>
-                                <td>{{values[0][1]|number:2}}</td>
-                                <td>{{values[1][1]|currency}}</td>
-                                <td>{{values[2][1]|currency}}</td>
-                                <td>{{values[3][1]|currency}}</td>
-                                <td ng-class="{negative: values[4][1] < 0}">{{values[4][1]|currency}}</td>
-                            </tr>
-                            <tr>
-                                <td>Weekly</td>
-                                <td>{{values[0][2]|number:2}}</td>
-                                <td>{{values[1][2]|currency}}</td>
-                                <td>{{values[2][2]|currency}}</td>
-                                <td>{{values[3][2]|currency}}</td>
-                                <td ng-class="{negative: values[4][2] < 0}">{{values[4][2]|currency}}</td>
-                            </tr>
-                            <tr>
-                                <td>Monthly</td>
-                                <td>{{values[0][3]|number:2}}</td>
-                                <td>{{values[1][3]|currency}}</td>
-                                <td>{{values[2][3]|currency}}</td>
-                                <td>{{values[3][3]|currency}}</td>
-                                <td ng-class="{negative: values[4][3] < 0}">{{values[4][3]|currency}}</td>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-5 animated fadeIn" id="chartContainer">
-                <div id="chartNotReady" ng-hide="myLineChart">
-                    <h3>Enter hashrate data for responsive chart!</h3>
-                </div>
-                <div  ng-show="myLineChart">
-                <h3>Estimated Total Future Profits ({{currency}})</h3>
-                <canvas id="myChart" height="400px" width="300px"></canvas><br/>
-                Time Frame:
-                <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 6" ng-change="changeAxis()"/> Months
+      <div id="wrapper">
+        <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       Bootstrap 3
+                    </a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-folder"></i> Page one</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-file-o"></i> Second page</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-cog"></i> Third page</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i> Dropdown <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">Dropdown heading</li>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-bank"></i> Page four</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-dropbox"></i> Page 5</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-twitter"></i> Last page</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
 
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+          <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+          </button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <!-- CALC START--> 
+                            <div id="header">
+                                <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
+                                <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
+                                <h4 style="text-align: center; color: red;">Mining ZCash? Check out the new ZCash calculator <a href="http://www.karldiab.com/ZCashMiningCalculator">here!</a></h4>
+                            </div>
+                            <div id="desktopAdBanner">
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <!-- EthCalcBanner -->
+                                <ins class="adsbygoogle"
+                                    style="display:inline-block;width:728px;height:90px"
+                                    data-ad-client="ca-pub-7592216756911114"
+                                    data-ad-slot="2667682183"></ins>
+                                <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+                            <div id="mobileAdBanner">
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <!-- EthBannerMobile -->
+                                <ins class="adsbygoogle"
+                                    style="display:inline-block;width:320px;height:100px"
+                                    data-ad-client="ca-pub-7592216756911114"
+                                    data-ad-slot="5773448986"></ins>
+                                <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                            </div>
+                            <div class="row">
+                                <div class="animated zoomInRight col-md-5">
+                                        <table id="inputTable">
+                                            <tr>
+                                                <th>Hashrate:</th>
+                                                <td>
+                                                    <input type="number" id="userHash" ng-model="userHash" 
+                                                    ng-change="computeProfits()" placeholder="Enter Hashrate" />
+                                                    <select ng-model="userHashSuffix" ng-change="computeProfits()">
+                                                    <option value="KH">KH/s</option>
+                                                    <option value="MH" selected="selected" ng-init="userHashSuffix = 'MH'">MH/s</option>
+                                                    <option value="GH">GH/s</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Difficulty:</th>
+                                                <td><input type="number" ng-model="difficulty" ng-change="computeProfits()"/> Trillion</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Block Time:</th>
+                                                <td><input type="number" ng-model="blockTime" ng-change="computeProfits()"/> Seconds</td>
+                                            </tr>
+                                            <tr>
+                                                <th>ETH Price:</th>
+                                                <td><input type="number" ng-model="price" ng-change="computeProfits()"/>
+                                                    <select ng-model="currency" ng-change="fetchPriceOnly()">
+                                                    <option value="USD" ng-init="currencyCode = 'USD'">USD</option>
+                                                    <option value="RUB">RUB</option>
+                                                    <option value="CNY">CNY</option>
+                                                    <option value="CAD">CAD</option>
+                                                    <option value="EUR">EUR</option>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Power:</th>
+                                                <td><input type="number" ng-model="wattage" ng-change="computeProfits()" ng-init="wattage = 0"/>
+                                                    <select ng-model="powerSuffix" ng-change="computeProfits()">
+                                                    <option value="W" selected="powerSuffix" ng-init="powerSuffix = 'W'">W</option>
+                                                    <option value="kW">kW</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Power Cost:</th>
+                                                <td><input type="number" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0"/> {{ currency }} / kWh</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pool Fee</th>
+                                                <td><input type="number" ng-model="poolFee" ng-change="computeProfits()" ng-init="poolFee = 0"/> %</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Diff Change</th>
+                                                <td><input type="number" ng-model="diffChange" ng-change="computeProfits()"/> Trillion / Month</td>
+                                            </tr>
+                                        </table>
+                                        <h3>Profits At This Difficulty</h3>
+                                    <div>
+                                        <table id="outputTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Period</th>
+                                                    <th>ETH</th>
+                                                    <th>{{currency}}</th>
+                                                    <th>Power Cost ({{currency}})</th>
+                                                    <th>Pool Fees ({{currency}})</th>
+                                                    <th>Profit ({{currency}})</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Hourly</td>
+                                                    <td>{{values[0][0]|number:2}}</td>
+                                                    <td>{{values[1][0]|currency}}</td>
+                                                    <td>{{values[2][0]|currency}}</td>
+                                                    <td>{{values[3][0]|currency}}</td>
+                                                    <td ng-class="{negative: values[4][0] < 0}">{{values[4][0]|currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Daily</td>
+                                                    <td>{{values[0][1]|number:2}}</td>
+                                                    <td>{{values[1][1]|currency}}</td>
+                                                    <td>{{values[2][1]|currency}}</td>
+                                                    <td>{{values[3][1]|currency}}</td>
+                                                    <td ng-class="{negative: values[4][1] < 0}">{{values[4][1]|currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Weekly</td>
+                                                    <td>{{values[0][2]|number:2}}</td>
+                                                    <td>{{values[1][2]|currency}}</td>
+                                                    <td>{{values[2][2]|currency}}</td>
+                                                    <td>{{values[3][2]|currency}}</td>
+                                                    <td ng-class="{negative: values[4][2] < 0}">{{values[4][2]|currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Monthly</td>
+                                                    <td>{{values[0][3]|number:2}}</td>
+                                                    <td>{{values[1][3]|currency}}</td>
+                                                    <td>{{values[2][3]|currency}}</td>
+                                                    <td>{{values[3][3]|currency}}</td>
+                                                    <td ng-class="{negative: values[4][3] < 0}">{{values[4][3]|currency}}</td>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 animated fadeIn" id="chartContainer">
+                                    <div id="chartNotReady" ng-hide="myLineChart">
+                                        <h3>Enter hashrate data for responsive chart!</h3>
+                                    </div>
+                                    <div  ng-show="myLineChart">
+                                    <h3>Estimated Total Future Profits ({{currency}})</h3>
+                                    <canvas id="myChart" height="400px" width="300px"></canvas><br/>
+                                    Time Frame:
+                                    <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 6" ng-change="changeAxis()"/> Months
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                    <!-- EthereumCalc -->
+                                    <ins class="adsbygoogle"
+                                        style="display:block"
+                                        data-ad-client="ca-pub-7592216756911114"
+                                        data-ad-slot="2807282988"
+                                        data-ad-format="auto"></ins>
+                                    <script>
+                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>
+                            </div>
+                            <div id="notes">
+                                <h4>Notes</h4>
+                                <ul>
+                                    <li><a href="https://etherchain.org/account/0xd24780aeaf3603e8902e58d46bf778a173d42721">Donation Address</a></li>
+                                    <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
+                                    <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
+                                    <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
+                            </div>
+                            <div id="authorInfo">
+                                <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
+                                <a href="https://github.com/karldiab/EthereumMiningCalculator"><button class="btn btn-primary btn-sm">Source Code</button></a>
+                                <a href="http://www.karldiab.com/ZCashMiningCalculator"><button class="btn btn-danger btn-sm">ZCash Mining Calculator</button></a>
+                                <a href="http://www.karldiab.com/BitcoinMiningCalculator"><button class="btn btn-warning btn-sm">Bitcoin Mining Calculator</button></a>
+                            </div>
+                    <!-- CALCEND-->        
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                <!-- EthereumCalc -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="ca-pub-7592216756911114"
-                    data-ad-slot="2807282988"
-                    data-ad-format="auto"></ins>
-                <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
         </div>
-        <div id="notes">
-            <h4>Notes</h4>
-            <ul>
-                <li><a href="https://etherchain.org/account/0xd24780aeaf3603e8902e58d46bf778a173d42721">Donation Address</a></li>
-                <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
-                <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
-                <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
-        </div>
-        <div id="authorInfo">
-            <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
-            <a href="https://github.com/karldiab/EthereumMiningCalculator"><button class="btn btn-primary btn-sm">Source Code</button></a>
-            <a href="http://www.karldiab.com/ZCashMiningCalculator"><button class="btn btn-danger btn-sm">ZCash Mining Calculator</button></a>
-            <a href="http://www.karldiab.com/BitcoinMiningCalculator"><button class="btn btn-warning btn-sm">Bitcoin Mining Calculator</button></a>
-        </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+
+    <script src="js/index.js"></script>
+
 </body>
 </html>
-
-
-
