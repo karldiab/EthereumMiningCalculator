@@ -31,8 +31,9 @@
                             <div id="header">
                                 <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
                                 <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
-                                <h4 style="text-align: center;">Click <span class="glyphicon glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> over there 
-                                <span class="glyphicon glyphicon glyphicon-arrow-left" aria-hidden="true"></span> for more calculators!</h4>
+                                <div  id="infoMessage">
+                                    <p>Please consider disabling your ad blocker <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
+                                </div>
                             </div>
                             <div id="desktopAdBanner">
                                 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

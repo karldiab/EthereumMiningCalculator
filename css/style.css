@@ -37,14 +37,17 @@ table {
     display: none;
 }
 #desktopAdBanner {
+    margin-top: 10px;
     display: block;
     text-align: center;
     
 }
+
 @media screen 
 and (max-width : 500px) {
     #mobileAdBanner,
     #smallTitle {
+    margin-top: 10px;
         display: block;
         text-align: center;
     }
@@ -76,4 +79,9 @@ td {
 }
 #axisChange {
     width: 50px;
+}
+#infoMessage {
+    text-align: center;
+    color: #430056;
+    margin-bottom: 5px;
 }
