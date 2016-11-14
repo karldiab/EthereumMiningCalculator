@@ -171,9 +171,11 @@ function data($scope, $http) {
                 if ($scope.diffChange > 0) {
                     projectedDifficulty += $scope.diffChange;
                 } else {
-                    projectedDifficulty += $scope.diffChange/i;
+                    projectedDifficulty *= 1 + $scope.diffChange/$scope.difficulty;
                 }
-
+                if (projectedDifficulty < 1) {
+                    projectedDifficulty = 1;
+                }
                 rollingDiffFactor = $scope.difficulty/(projectedDifficulty);
             }
         }
