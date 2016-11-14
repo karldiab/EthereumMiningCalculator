@@ -66,22 +66,47 @@ function data($scope, $http) {
                 $scope.price = response.price.usd;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
+                return;
             } else if ($scope.currency == "CNY") {
                 $scope.price = response.price.cny;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
+                return;
             } else if ($scope.currency == "RUB") {
                 $scope.price = response.price.rub;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
+                return;
             } else if ($scope.currency == "CAD") {
                 $scope.price = response.price.cad;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
+                return;
             } else if ($scope.currency == "EUR") {
                 $scope.price = response.price.eur;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
+                return;
+            } else if ($scope.currency == "JPY") {
+                $scope.price = response.price.jpy;
+            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
+                $scope.computeProfits();
+                return;
+            } else if ($scope.currency == "GBP") {
+                $scope.price = response.price.gbp;
+            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
+                $scope.computeProfits();
+                return;
+            } else if ($scope.currency == "HKD") {
+                $scope.price = response.price.hkd;
+            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
+                $scope.computeProfits();
+                return;
+            } else if ($scope.currency == "AUD") {
+                $scope.price = response.price.aud;
+            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
+                $scope.computeProfits();
+                return;
             }
         });
     }

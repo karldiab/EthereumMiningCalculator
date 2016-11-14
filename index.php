@@ -18,7 +18,16 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel='stylesheet' href='../MiningCalcSideBar/style/style.css'>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+      ga('create', 'UA-73629036-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
   
 </head>
 
@@ -87,8 +96,12 @@
                                                     <option value="USD" ng-init="currencyCode = 'USD'">USD</option>
                                                     <option value="RUB">RUB</option>
                                                     <option value="CNY">CNY</option>
-                                                    <option value="CAD">CAD</option>
                                                     <option value="EUR">EUR</option>
+                                                    <option value="CAD">CAD</option>
+                                                    <option value="HKD">HKD</option>
+                                                    <option value="GBP">GBP</option>
+                                                    <option value="JPY">JPY</option>
+                                                    <option value="AUD">AUD</option>
                                                 </td>
                                             </tr>
                                             <tr>
