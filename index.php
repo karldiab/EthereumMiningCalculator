@@ -211,7 +211,8 @@
                             </div>
                             <div id="authorInfo">
                                 <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
-                                <a href="https://github.com/karldiab/EthereumMiningCalculator"><button class="btn btn-primary btn-sm">Source Code</button></a>
+                                <a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#107;&#97;&#114;&#108;&#64;&#107;&#97;&#114;&#108;&#100;&#105;&#97;&#98;&#46;&#99;&#111;&#109;'><button class="btn btn-primary btn-sm">Email</button></a>
+                                <a href="https://github.com/karldiab/EthereumMiningCalculator"><button class="btn btn-danger btn-sm">Source Code</button></a>
                             </div>
                     <!-- CALCEND-->        
                     <?php 
