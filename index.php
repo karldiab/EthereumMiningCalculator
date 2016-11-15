@@ -207,6 +207,7 @@
                                     <li><a href="https://etherchain.org/account/0x3D1e9a8704449F271A93392Ff06e0284e2d86769">Donation Address</a></li>
                                     <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
                                     <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
+                                    <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
                                     <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
                             </div>
                             <div id="authorInfo">
