@@ -2,12 +2,12 @@
 <html lang="en" ng-app ng-controller="data">
 <head>
     <meta charset="UTF-8">
-    <title>Ethereum Mining Calculator</title>
-    <meta name="description" content="An easy to use crypto-currency finance utility used to calculate a Ethereum miner's potential profits in ETH and multiple fiat
+    <title>Ethereum Classic Mining Calculator</title>
+    <meta name="description" content="An easy to use crypto-currency finance utility used to calculate a Ethereum Classic miner's potential profits in ETH and multiple fiat
                                 currencies. The calculator fetches price and network data from the internet
                                     and only requires the hash rate (speed of mining) from the user. A projected future profit
                                     chart is created dynamically and displayed instantly.">
-    <meta name="keywords" content="Ethereum,Mining,Profitability,Calculator,AngularJS,AJAX,finance,currency,cryptocurrency,money,bitcoin">
+    <meta name="keywords" content="Classic,Ethereum,Mining,Profitability,Calculator,AngularJS,AJAX,finance,currency,cryptocurrency,money,bitcoin">
     <meta name="author" content="Karl Diab">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
@@ -38,8 +38,8 @@
                     ?>
                     <!-- CALC START--> 
                             <div id="header">
-                                <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
-                                <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
+                                <div id="bigTitle"><h2>Ethereum Classic Mining Calculator</h2></div>
+                                <div id="smallTitle"><h4>Ethereum Classic Mining Calculator</h4></div>
                                 <div  id="infoMessage">
                                     <p>Now with 9 currencies! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
                                 </div>
@@ -208,7 +208,7 @@
                                     <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
                                     <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
                                     <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
-                                    <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
+                                    <li>The utility fetches live Ethereum Classic network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
                             </div>
                             <div id="authorInfo">
                                 <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
