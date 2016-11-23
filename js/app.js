@@ -3,6 +3,9 @@ function data($scope, $http) {
     if($scope.search == undefined) {
         $scope.search = "hi";
         $scope.currency = "USD";
+        var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+        //d.setUTCSeconds(utcSeconds);
+        $scope.statsLastFetched = new Date(ETC_Statstimestamp > ETC_Pricetimestamp ? ETC_Pricetimestamp * 1000 : ETC_Statstimestamp * 1000).toLocaleString();
         fetch();
     }
     
@@ -26,89 +29,65 @@ function data($scope, $http) {
     $scope.values = [];
     //function that grabs api data from the net
     function fetch() {
-        //finding average price between 3 high volume exchanges.
-        $http.get("http://coinmarketcap-nexuist.rhcloud.com/api/eth")
-        .success(function(response) {
-            $scope.price = response.price.usd;
-            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
-        });
-        $http.get("https://etherchain.org/api/difficulty")
-        .success(function(response) {
-            $scope.ethereumStats = response;
-            $scope.difficulty = parseFloat((($scope.ethereumStats.data[0].difficulty)/1e12).toFixed(4));
-            //console.log($scope.difficulty);
-            $http.get("https://etherchain.org/api/miningEstimator")
-            .success(function(response) {
-                $scope.ethereumStats = response;
-                $scope.blockTime = $scope.ethereumStats.data[0].blockTime;
-                $http.get("https://etherchain.org/api/blocks/count")
-                .success(function(response) {
-                    $scope.blockCount = response.data[0].count;
-                    blockNum1MoAgo = $scope.blockCount - (30*24*60*60/$scope.blockTime);
-                    $http.get("https://etherchain.org/api/block/" + Math.round(blockNum1MoAgo))
-                    .success(function(response) {
-                        difficulty1MoAgo = response.data[0].difficulty;
-                        $scope.diffChange = parseFloat((($scope.difficulty*1e12 - difficulty1MoAgo)/1e12).toFixed(2));
-                        
-                    })
-                })
-            })
-        });
-
+        $scope.price = ETC_PriceUSD;
+        $scope.difficulty = ETC_Statsdifficulty / 1;
+        $scope.blockTime = ETC_StatsblockTime;
+        $scope.diffChange = ETC_StatsdiffChange;
     }
 
     //this function grabs price data only when the currency is changed
     $scope.fetchPriceOnly = function() {
-        //finding average price between 3 high volume exchanges.
-        $http.get("http://coinmarketcap-nexuist.rhcloud.com/api/eth")
-        .success(function(response) {
             if ($scope.currency == "USD") {
-                $scope.price = response.price.usd;
+                $scope.price = ETC_PriceUSD;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "CNY") {
-                $scope.price = response.price.cny;
+                $scope.price = ETC_PriceCNY;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "RUB") {
-                $scope.price = response.price.rub;
+                $scope.price = ETC_PriceRUB;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "CAD") {
-                $scope.price = response.price.cad;
+                $scope.price = ETC_PriceCAD;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "EUR") {
-                $scope.price = response.price.eur;
+                $scope.price = ETC_PriceEUR;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "JPY") {
-                $scope.price = response.price.jpy;
+                $scope.price = ETC_PriceJPY;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "GBP") {
-                $scope.price = response.price.gbp;
+                $scope.price = ETC_PriceGBP;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "HKD") {
-                $scope.price = response.price.hkd;
+                $scope.price = ETC_PriceHKD;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             } else if ($scope.currency == "AUD") {
-                $scope.price = response.price.aud;
+                $scope.price = ETC_PriceAUD;
+            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
+                $scope.computeProfits();
+                return;
+            } else if ($scope.currency == "VND") {
+                $scope.price = ETC_PriceVND;
             $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
                 $scope.computeProfits();
                 return;
             }
-        });
     }
   /*Function that calculates the profits of the user in ethereum.*/
   $scope.computeProfits = function() {  

@@ -34,7 +34,12 @@
 <body>
                     <?php 
                     require_once('../MiningCalcSideBar/echoSideBar.php');
+                    require_once('DBActions.php');
                     echoTopHalf();
+                    echo "<script>";
+                    echoJSVars(getSingleRow("karldiab_coinStats.ETC_Price", "timestamp"), "ETC_Price");
+                    echoJSVars(getSingleRow("karldiab_coinStats.ETC_Stats", "timestamp"), "ETC_Stats");
+                    echo "</script>";
                     ?>
                     <!-- CALC START--> 
                             <div id="header">
@@ -204,7 +209,7 @@
                             <div id="notes">
                                 <h4>Notes</h4>
                                 <ul>
-                                    <li><a href="https://etherchain.org/account/0x3D1e9a8704449F271A93392Ff06e0284e2d86769">Donation Address</a></li>
+                                    <li>Statistics last fetched at {{statsLastFetched}}</li>
                                     <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
                                     <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
                                     <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
