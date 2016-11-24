@@ -41,7 +41,7 @@
                                 <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
                                 <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
                                 <div  id="infoMessage">
-                                    <p>Now with 9 currencies! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
+                                    <p>Ethereum Classic calculator added! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
                                 </div>
                             </div>
                             <div id="desktopAdBanner">
