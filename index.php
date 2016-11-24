@@ -46,7 +46,7 @@
                                 <div id="bigTitle"><h2>Ethereum Classic Mining Calculator</h2></div>
                                 <div id="smallTitle"><h4>Ethereum Classic Mining Calculator</h4></div>
                                 <div  id="infoMessage">
-                                    <p>Now with 9 currencies! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
+                                    <p>Want more coins added? Email me! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
                                 </div>
                             </div>
                             <div id="desktopAdBanner">
@@ -210,10 +210,9 @@
                                 <h4>Notes</h4>
                                 <ul>
                                     <li>Statistics last fetched at {{statsLastFetched}}</li>
-                                    <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
+                                    <li>Stats are fetched using node.js running on a Raspberry Pi.</li>
                                     <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
                                     <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
-                                    <li>The utility fetches live Ethereum Classic network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
                             </div>
                             <div id="authorInfo">
                                 <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
