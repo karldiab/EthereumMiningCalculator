@@ -61,6 +61,8 @@ function data($scope, $http) {
                 $scope.blockOneMonthAgoStats = response;
                 calculateDiffChange();
             });
+        }).error(function (data, status, headers, config) {
+            fetchFailover();
         });
 
     }
@@ -74,7 +76,8 @@ function data($scope, $http) {
             $scope.diffChange = parseFloat((($scope.difficulty*1e12 - $scope.blockOneMonthAgoStats.result.difficulty)/1e12).toFixed(2));
         }
     }
-/*    function fetch() {
+    function fetchFailover() {
+        console.log("EtherScan can't be reached! Using Etherchain as backup");
         //finding average price between 3 high volume exchanges.
         $http.get("http://coinmarketcap-nexuist.rhcloud.com/api/eth")
         .success(function(response) {
@@ -104,7 +107,7 @@ function data($scope, $http) {
             })
         });
 
-    }*/
+    }
 
     //this function grabs price data only when the currency is changed
     $scope.fetchPriceOnly = function() {
