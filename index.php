@@ -41,7 +41,7 @@
                                 <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
                                 <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
                                 <div  id="infoMessage">
-                                    <p>Ethereum Classic calculator added! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
+                                    <p>Calculator will be more reliable, added Etherscan as failover. Sorry about the stats outage! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
                                 </div>
                             </div>
                             <div id="desktopAdBanner">
@@ -208,7 +208,7 @@
                                     <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
                                     <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
                                     <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
-                                    <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org and http://coinmarketcap.com</li>
+                                    <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org https://www.etherscan.io and http://coinmarketcap.com</li>
                             </div>
                             <div id="authorInfo">
                                 <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>

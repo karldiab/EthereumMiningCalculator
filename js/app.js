@@ -26,6 +26,55 @@ function data($scope, $http) {
     $scope.values = [];
     //function that grabs api data from the net
     function fetch() {
+        $scope.fourHundredBlocksAgoStats = null;
+        $scope.currentBlockStats = null;
+        $scope.blockOneMonthAgoStats = null;
+        //finding average price between 3 high volume exchanges.
+        $http.get("http://coinmarketcap-nexuist.rhcloud.com/api/eth")
+        .success(function(response) {
+            $scope.price = response.price.usd;
+            $scope.price = parseFloat(parseFloat($scope.price).toFixed(2));
+        });
+        $http.get("https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=68FXT7ZZUV826B83Z9GSUY4M1DB1S5IYWY")
+        .success(function(response) {
+            //$scope.ethereumStats = response;
+            var currentBlock = response.result;
+            //console.log("current block is " + currentBlock);
+            //$scope.difficulty = parseFloat((($scope.ethereumStats.data[0].difficulty)/1e12).toFixed(4));
+            //console.log($scope.difficulty);
+            $http.get("https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=" + currentBlock + "&boolean=true&apikey=68FXT7ZZUV826B83Z9GSUY4M1DB1S5IYWY")
+            .success(function(response) {
+                $scope.currentBlockStats = response;
+                $scope.difficulty = parseFloat((($scope.currentBlockStats.result.difficulty)/1e12).toFixed(4));
+                calculateBlockTime();
+                calculateDiffChange();
+            })
+            var fourHundredBlocksAgo = (parseInt(currentBlock) - 400).toString(16);
+            $http.get("https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=" + fourHundredBlocksAgo + "&boolean=true&apikey=68FXT7ZZUV826B83Z9GSUY4M1DB1S5IYWY")
+            .success(function(response) {
+                $scope.fourHundredBlocksAgoStats = response;
+                calculateBlockTime();
+            });
+            var blockOneMonthAgo = (parseInt(currentBlock) - 185143).toString(16);
+            $http.get("https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=" + blockOneMonthAgo + "&boolean=true&apikey=68FXT7ZZUV826B83Z9GSUY4M1DB1S5IYWY")
+            .success(function(response) {
+                $scope.blockOneMonthAgoStats = response;
+                calculateDiffChange();
+            });
+        });
+
+    }
+    function calculateBlockTime() {
+        if ($scope.currentBlockStats !== null && $scope.fourHundredBlocksAgoStats !== null) {
+            $scope.blockTime = (parseInt($scope.currentBlockStats.result.timestamp) - parseInt($scope.fourHundredBlocksAgoStats.result.timestamp))/400;
+        }
+    }
+    function calculateDiffChange() {
+        if ($scope.currentBlockStats !== null && $scope.blockOneMonthAgoStats !== null) {
+            $scope.diffChange = parseFloat((($scope.difficulty*1e12 - $scope.blockOneMonthAgoStats.result.difficulty)/1e12).toFixed(2));
+        }
+    }
+/*    function fetch() {
         //finding average price between 3 high volume exchanges.
         $http.get("http://coinmarketcap-nexuist.rhcloud.com/api/eth")
         .success(function(response) {
@@ -55,7 +104,7 @@ function data($scope, $http) {
             })
         });
 
-    }
+    }*/
 
     //this function grabs price data only when the currency is changed
     $scope.fetchPriceOnly = function() {
