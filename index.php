@@ -107,6 +107,7 @@
                                                     <option value="GBP">GBP</option>
                                                     <option value="JPY">JPY</option>
                                                     <option value="AUD">AUD</option>
+                                                    <option value="VND">VND</option>
                                                     </select>
                                                 </td>
                                             </tr>
