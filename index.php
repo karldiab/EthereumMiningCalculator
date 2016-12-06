@@ -41,7 +41,7 @@
                                 <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
                                 <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
                                 <div  id="infoMessage">
-                                    <p>Calculator will be more reliable, added Etherscan as failover. Sorry about the stats outage! <span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true"></span></p>
+                                    <p><img src="../images/XMR.png"> Monero calculator added. Check it out!</p>
                                 </div>
                             </div>
                             <div id="desktopAdBanner">
