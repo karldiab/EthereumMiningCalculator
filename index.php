@@ -122,7 +122,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Power Cost:</th>
-                                                <td><input type="number" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0"/> {{ currency }} / kWh</td>
+                                                <td><input type="number" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0.1"/> {{ currency }} / kWh</td>
                                             </tr>
                                             <tr>
                                                 <th>Pool Fee</th>
