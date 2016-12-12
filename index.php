@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app ng-controller="data">
+<html lang="en" ng-app="miningCalc" ng-controller="data">
 <head>
     <meta charset="UTF-8">
     <title>Ethereum Mining Calculator</title>
@@ -7,15 +7,17 @@
                                 currencies. The calculator fetches price and network data from the internet
                                     and only requires the hash rate (speed of mining) from the user. A projected future profit
                                     chart is created dynamically and displayed instantly.">
-    <meta name="keywords" content="Ethereum,Mining,Profitability,Calculator,AngularJS,AJAX,finance,currency,cryptocurrency,money,bitcoin">
+    <meta name="keywords" content="Ethereum,Mining,Profitability,Calculator,AngularJS,nodeJS,finance,currency,cryptocurrency,money,bitcoin">
     <meta name="author" content="Karl Diab">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js"></script>
     <script src="js/app.js"></script>
     <script src="js/Chart.min.js"></script>
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style1.css">
     <link rel='stylesheet' href='../MiningCalcSideBar/style/style.css'>
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
     <script>
@@ -38,10 +40,10 @@
                     ?>
                     <!-- CALC START--> 
                             <div id="header">
-                                <div id="bigTitle"><h2>Ethereum Mining Calculator</h2></div>
-                                <div id="smallTitle"><h4>Ethereum Mining Calculator</h4></div>
+                                <div id="bigTitle"><h2><img src="images/EthereumLogo.png" style="position: relative; bottom: 4px;">Ethereum Mining Calculator</h2></div>
+                                <div id="smallTitle"><h4><img src="images/EthereumLogo.png" style="position: relative; bottom: 4px; height: 25px; width: 25px;">Ethereum Mining Calculator</h4></div>
                                 <div  id="infoMessage">
-                                    <p><img src="../images/XMR.png"> Monero calculator added. Check it out!</p>
+                                    <p>Now with LIVE stats!</p>
                                 </div>
                             </div>
                             <div id="desktopAdBanner">
@@ -83,16 +85,12 @@
                                             </tr>
                                             <tr>
                                                 <th>Difficulty:</th>
-                                                <td><input type="number" ng-model="difficulty" ng-change="computeProfits()"/> Trillion</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Block Time:</th>
-                                                <td><input type="number" ng-model="blockTime" ng-change="computeProfits()"/> Seconds</td>
+                                                <td><input type="number" ng-model="difficulty" ng-change="computeProfits(); turnAutoUpdateOff()"/> Trillion</td>
                                             </tr>
                                             <tr>
                                                 <th>ETH Price:</th>
-                                                <td><input type="number" ng-model="price" ng-change="computeProfits()"/>
-                                                    <select ng-model="currency" ng-change="fetchPriceOnly()">
+                                                <td><input type="number" ng-model="price" ng-change="computeProfits(); turnAutoUpdateOff()"/>
+                                                    <select ng-model="currency" ng-change="calculatePrice()">
                                                     <option value="USD" ng-init="currencyCode = 'USD'">USD</option>
                                                     <option value="RUB">RUB</option>
                                                     <option value="CNY">CNY</option>
@@ -124,8 +122,17 @@
                                             </tr>
                                             <tr>
                                                 <th>Diff Change</th>
-                                                <td><input type="number" ng-model="diffChange" ng-change="computeProfits()"/> Trillion / Month</td>
+                                                <td><input type="number" ng-model="diffChange" ng-change="computeProfits(); turnAutoUpdateOff()"/> Trillion / Month</td>
                                             </tr>
+                                            <tr>
+                                            <th>Live Stats:</th>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" ng-model="autoUpdate">
+                                                    <div class="slider round"></div>
+                                                    <div id="autoUpdateString">{{autoUpdateString}} </span></div>
+                                                </label>
+                                            </td>
                                         </table>
                                         <h3>Profits At This Difficulty</h3>
                                     <div>
@@ -205,10 +212,9 @@
                                 <h4>Notes</h4>
                                 <ul>
                                     <li><a href="https://etherchain.org/account/0x3D1e9a8704449F271A93392Ff06e0284e2d86769">Donation Address</a></li>
-                                    <li>The calculations accounts for average network blocktime, which increases accuracy but lowers predicted profit. Don't be fooled by other optimistic calculators!</li>
                                     <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
                                     <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
-                                    <li>The utility fetches live Ethereum network & price data from https://www.etherchain.org https://www.etherscan.io and http://coinmarketcap.com</li>
+                                    <li>The utility fetches live Ethereum network & price data from a nodeJS backend and foreign currency rates from www.coinmarketcap.com</li>
                             </div>
                             <div id="authorInfo">
                                 <a href="http://www.karldiab.com"><button class="btn btn-success btn-sm">Website</button></a>
