@@ -43,7 +43,7 @@
                                 <div id="bigTitle"><h2><img src="images/EthereumLogo.png" style="position: relative; bottom: 4px;">Ethereum Mining Calculator</h2></div>
                                 <div id="smallTitle"><h4><img src="images/EthereumLogo.png" style="position: relative; bottom: 4px; height: 25px; width: 25px;">Ethereum Mining Calculator</h4></div>
                                 <div  id="infoMessage">
-                                    <p>Now with LIVE stats!</p>
+                                    <p>Now more accurate*</p>
                                 </div>
                             </div>
                             <div id="desktopAdBanner">
@@ -122,7 +122,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Diff Change</th>
-                                                <td><input type="number" ng-model="diffChange" ng-change="computeProfits(); turnAutoUpdateOff()"/> Trillion / Month</td>
+                                                <td><input type="number" ng-model="diffChange" ng-change="computeProfits(); turnAutoUpdateOff()"/> Trillion / Month <div ng-show="dynamicDiffWarning" id="dynamicDiffWarning" style="display: inline;"><p style="color: red; font-size:16px; display: inline;"> <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></p></div></td></td>
                                             </tr>
                                             <tr>
                                             <th>Live Stats:</th>
@@ -185,14 +185,29 @@
                                 </div>
                                 <div class="col-md-5 animated fadeIn" id="chartContainer">
                                     <div id="chartNotReady" ng-hide="myLineChart">
-                                        <h3>Enter hashrate data for responsive chart!</h3>
+                                        <div id="bigTitle">
+                                            <h3>Enter hashrate data for responsive chart!</h3>
+                                        </div>
+                                        <div id="smallTitle">
+                                            <h4>Enter hashrate data for responsive chart!</h4>
+                                        </div>
                                     </div>
                                     <div  ng-show="myLineChart">
-                                    <h3>Estimated Total Future Profits ({{currency}})</h3>
+                                    <div id="bigTitle">
+                                        <h3>Estimated Total Future Profits ({{currency}})</h3>
+                                    </div>
+                                    <div id="smallTitle">
+                                        <h4>Estimated Total Future Profits ({{currency}})</h4>
+                                    </div>
                                     <canvas id="myChart" height="400px" width="300px"></canvas><br/>
                                     Time Frame:
-                                    <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 6" ng-change="changeAxis()"/> Months
-
+                                    <input type="number" ng-model="timeFrame" id="axisChange" ng-init="timeFrame = 6" ng-change="changeAxis()"/> Months</br>
+                                    Dynamic Difficulty: 
+                                    <label class="switch">
+                                        <input type="checkbox" ng-model="dynamicDifficulty" ng-change="dynamicDiffRedrawChart()">
+                                        <div class="slider round"></div> {{dynamicDifficultyString}}
+                                    </label>
+                                        <div ng-show="dynamicDiffWarning" id="dynamicDiffWarning" style="display: inline;"><p style="color: red; font-size:18px; display: inline;"> &nbsp;<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></p></div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -211,8 +226,9 @@
                             <div id="notes">
                                 <h4>Notes</h4>
                                 <ul>
+                                    <li ng-show="dynamicDiffWarning" style="color: red;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Diff Change value is too large. Future profitability estimates may be inaccurate. Consider making Diff Change smaller or turning off Dynamic Difficulty.</li>
+                                    <li>*Calculator was too optimistic, so I changed some calculation parameters. Now the results closely match actual earnings from the major pools.</li>
                                     <li><a href="https://etherchain.org/account/0x3D1e9a8704449F271A93392Ff06e0284e2d86769">Donation Address</a></li>
-                                    <li>Doesn't account for uncle blocks. This doesn't seem to impact overall accuracy much</li>
                                     <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
                                     <li>The utility fetches live Ethereum network & price data from a nodeJS backend and foreign currency rates from www.coinmarketcap.com</li>
                             </div>
