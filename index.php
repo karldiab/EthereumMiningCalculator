@@ -226,7 +226,7 @@
                             <div id="notes">
                                 <h4>Notes</h4>
                                 <ul>
-                                    <li ng-show="dynamicDiffWarning" style="color: red;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Diff Change value is too large. Future profitability estimates may be inaccurate. Consider making Diff Change smaller or turning off Dynamic Difficulty.</li>
+                                    <li ng-show="dynamicDiffWarning" style="color: red;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Diff Change value is very large. Future profitability estimates may be inaccurate. Consider making Diff Change smaller or turning off Dynamic Difficulty.</li>
                                     <li>*Calculator was too optimistic, so I changed some calculation parameters. Now the results closely match actual earnings from the major pools.</li>
                                     <li><a href="https://etherchain.org/account/0x3D1e9a8704449F271A93392Ff06e0284e2d86769">Donation Address</a></li>
                                     <li>Do you find this calculator accurate/inaccurate or have a question or comment? Send me an email, link below!</li>
