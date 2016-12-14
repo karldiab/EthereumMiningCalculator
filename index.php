@@ -90,7 +90,7 @@
                                             <tr>
                                                 <th>ETH Price:</th>
                                                 <td><input type="number" ng-model="price" ng-change="computeProfits(); turnAutoUpdateOff()"/>
-                                                    <select ng-model="currency" ng-change="calculatePrice()">
+                                                    <select ng-model="currency" ng-change="calculatePrice(true)">
                                                     <option value="USD" ng-init="currencyCode = 'USD'">USD</option>
                                                     <option value="RUB">RUB</option>
                                                     <option value="CNY">CNY</option>
@@ -105,7 +105,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Power:</th>
-                                                <td><input type="number" ng-model="wattage" ng-change="computeProfits()" ng-init="wattage = 0"/>
+                                                <td><input type="number" min="0" step="1" ng-model="wattage" ng-change="computeProfits()" ng-init="wattage = 0"/>
                                                     <select ng-model="powerSuffix" ng-change="computeProfits()">
                                                     <option value="W" selected="powerSuffix" ng-init="powerSuffix = 'W'">W</option>
                                                     <option value="kW">kW</option>
@@ -114,11 +114,11 @@
                                             </tr>
                                             <tr>
                                                 <th>Power Cost:</th>
-                                                <td><input type="number" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0.1"/> {{ currency }} / kWh</td>
+                                                <td><input type="number" min="0" max="100" step="0.01" ng-model="powerCost" ng-change="computeProfits()" ng-init="powerCost = 0.1"/> {{ currency }} / kWh</td>
                                             </tr>
                                             <tr>
                                                 <th>Pool Fee</th>
-                                                <td><input type="number" ng-model="poolFee" ng-change="computeProfits()" ng-init="poolFee = 0"/> %</td>
+                                                <td><input type="number" min="0" max="100" step="0.1" ng-model="poolFee" ng-change="computeProfits()" ng-init="poolFee = 0"/> %</td>
                                             </tr>
                                             <tr>
                                                 <th>Diff Change</th>
